@@ -1,0 +1,17 @@
+# local tooling
+.superpowers/
+# secrets: never commit
+.env
+/certs/
+*.key
+*.pem
+*.p12
+tools/forbidden-words.txt
+# VM images
+*.qcow2
+*.img
+*.iso
+# raw probe logs (summaries are committed)
+tests/results/**/raw/
+__pycache__/
+.pytest_cache/

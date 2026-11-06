@@ -1,0 +1,18 @@
+#cloud-config
+hostname: __HOSTNAME__
+fqdn: __HOSTNAME__.waflab.internal
+manage_etc_hosts: true
+users:
+  - name: lab
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock_passwd: true
+    ssh_authorized_keys:
+      - __SSH_PUBKEY__
+ssh_pwauth: false
+timezone: Etc/UTC
+package_update: __PKG_UPDATE__
+packages: [__PACKAGES__]
+runcmd:
+  - [systemctl, enable, --now, systemd-timesyncd]

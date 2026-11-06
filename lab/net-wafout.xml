@@ -1,0 +1,9 @@
+<!-- Outside network: the test client lives here, "in front of" the
+     simulated perimeter firewall (the host). Routed, no NAT, so the
+     client source IP reaches the WAF unchanged. -->
+<network>
+  <name>wafout</name>
+  <forward mode='route'/>
+  <bridge name='virbr-out' stp='on' delay='0'/>
+  <ip address='10.90.30.1' netmask='255.255.255.0'/>
+</network>

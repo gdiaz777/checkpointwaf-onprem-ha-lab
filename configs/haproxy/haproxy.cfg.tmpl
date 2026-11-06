@@ -1,0 +1,78 @@
+# HAProxy on __NODE_NAME__ (rendered from configs/haproxy/haproxy.cfg.tmpl).
+# Identical on every WAF node except the node name / stats address.
+# Only the node holding the VIP (keepalived) receives client traffic.
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+    ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+    ssl-default-server-options ssl-min-ver TLSv1.2
+
+defaults
+    mode http
+    log global
+    option httplog
+    option dontlognull
+    option forwardfor                    # adds X-Forwarded-For: <client IP>
+    retries 3                            # retry a failed connection...
+    option redispatch 1                  # ...on ANOTHER agent at every retry (no 1 s turnaround on the same one)
+    timeout connect 1s                   # LAN: a healthy connect takes ms; fail fast on a dead node
+    timeout client 50s
+    timeout server 50s
+    timeout http-request 10s
+    timeout http-keep-alive 5s
+    timeout check 2s
+
+frontend fe_https
+    # Client traffic arrives on the VIP. HAProxy binds it on EVERY node (ip_nonlocal_bind),
+    # so the node that becomes VIP owner is already listening. Port 443 on the node's own
+    # IP belongs to the agent's NGINX (the asset in the portal matches on port 443).
+    bind __VIP__:80
+    bind __VIP__:443 ssl crt-list /etc/haproxy/crt-list.txt alpn h2,http/1.1
+    bind 127.0.0.1:80                    # keepalived track script
+    bind 127.0.0.1:443 ssl crt-list /etc/haproxy/crt-list.txt alpn h2,http/1.1   # local tests
+    # HAProxy is the edge (the firewall only DNATs): never trust a client-supplied
+    # X-Forwarded-For. option forwardfor then adds the real client IP.
+    http-request del-header X-Forwarded-For
+    http-request redirect scheme https code 301 unless { ssl_fc }
+    http-request set-header X-Forwarded-Proto https
+    use_backend be_app1 if { req.hdr(host),field(1,:) -i __APP1_FQDN__ }
+    use_backend be_app2 if { req.hdr(host),field(1,:) -i __APP2_FQDN__ }
+    default_backend be_unknown
+
+# One pool per application. Both pools contain the SAME agents, but each
+# health-checks them with its own Host header, end to end to that app's
+# backend: if app1's backend dies, only be_app1 goes DOWN; app2 is unaffected.
+backend be_app1
+    balance leastconn
+    option httpchk
+    http-check send meth GET uri /healthz ver HTTP/1.1 hdr Host __APP1_FQDN__
+    http-check expect status 200
+    http-response set-header X-Served-By __NODE_NAME__/%[srv_name]
+    default-server check inter 3s fall 3 rise 2 slowstart 30s ssl verify required ca-file /etc/haproxy/ca.crt sni str(__APP1_FQDN__) check-sni __APP1_FQDN__ observe layer7 error-limit 10 on-error fastinter fastinter 1s
+__HAPROXY_SERVERS__
+
+backend be_app2
+    balance leastconn
+    option httpchk
+    http-check send meth GET uri /healthz ver HTTP/1.1 hdr Host __APP2_FQDN__
+    http-check expect status 200
+    http-response set-header X-Served-By __NODE_NAME__/%[srv_name]
+    default-server check inter 3s fall 3 rise 2 slowstart 30s ssl verify required ca-file /etc/haproxy/ca.crt sni str(__APP2_FQDN__) check-sni __APP2_FQDN__ observe layer7 error-limit 10 on-error fastinter fastinter 1s
+__HAPROXY_SERVERS__
+
+backend be_unknown
+    http-request return status 404 content-type text/plain string "unknown host\n"
+
+listen stats
+    bind __NODE_IP__:8404
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats show-node
+    stats auth admin:__HAPROXY_STATS_PASS__

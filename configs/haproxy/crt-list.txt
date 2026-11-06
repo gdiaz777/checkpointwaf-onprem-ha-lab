@@ -1,0 +1,3 @@
+# certificate                                   SNI filter
+/etc/haproxy/certs/app1.waflab.example.pem      app1.waflab.example
+/etc/haproxy/certs/app2.waflab.example.pem      app2.waflab.example

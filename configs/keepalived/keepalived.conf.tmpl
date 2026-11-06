@@ -1,0 +1,36 @@
+# keepalived on __NODE_NAME__ (rendered from configs/keepalived/keepalived.conf.tmpl)
+global_defs {
+    router_id __NODE_NAME__
+    enable_script_security
+    script_user root
+}
+
+vrrp_script chk_haproxy {
+    script "/etc/keepalived/chk_haproxy.sh"
+    interval 2          # run every 2 s
+    timeout 3
+    fall 2              # 2 failures → FAULT (releases the VIP)
+    rise 2
+    # No "weight": a failing check puts the node in FAULT state. With
+    # "nopreempt", a weight-based priority drop would NOT move the VIP
+    # (the backup is not allowed to preempt), so FAULT is what we want.
+}
+
+vrrp_instance VI_WAF {
+    state BACKUP                 # all nodes start as BACKUP; the election decides
+    nopreempt                    # a recovered node does not take the VIP back (no 2nd outage)
+    interface __VRRP_IFACE__
+    virtual_router_id 51         # must be unique per L2 segment
+    priority __NODE_PRIORITY__   # node1 110, node2 100, node3 90
+    advert_int 1
+    unicast_src_ip __NODE_IP__   # unicast VRRP: no multicast needed on the vSwitch
+    unicast_peer {
+__PEERS__
+    }
+    virtual_ipaddress {
+        __VIP__/24 dev __VRRP_IFACE__
+    }
+    track_script {
+        chk_haproxy
+    }
+}

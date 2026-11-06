@@ -1,0 +1,8 @@
+<!-- Inside network: WAF nodes, VIP and backends. NAT to the Internet
+     (agents must reach the Infinity Portal). IPs are static (cloud-init). -->
+<network>
+  <name>waflab</name>
+  <forward mode='nat'/>
+  <bridge name='virbr-waf' stp='on' delay='0'/>
+  <ip address='10.90.20.1' netmask='255.255.255.0'/>
+</network>
