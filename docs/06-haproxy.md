@@ -35,7 +35,7 @@ backend be_app1
 | `bind <VIP>:443 ssl crt-list /etc/haproxy/crt-list.txt` | One listener for all apps, **on the VIP only**: the node's own IP:443 belongs to the agent's NGINX (the asset matches on port 443, [chapter 4](04-infinity-portal.md)). [`crt-list.txt`](../configs/haproxy/crt-list.txt) maps each SNI to its certificate |
 | `bind 127.0.0.1:80` / `127.0.0.1:443` | Local listeners for the keepalived track script and for tests run on the node |
 | `bind <VIP>:80` + `redirect scheme https` | HTTP → HTTPS |
-| `http-request del-header X-Forwarded-For` | HAProxy is the edge (the firewall only DNATs), so a client-supplied `X-Forwarded-For` is **discarded**. Otherwise a client could put any IP first in the chain and impersonate it towards the WAF (rate limits, exceptions, learning). Tested: a request with `X-Forwarded-For: 6.6.6.6` reaches the backend as `10.90.30.10, …` |
+| `http-request del-header X-Forwarded-For` | **Assumes no proxy in front of HAProxy** (see "X-Forwarded-For: why HAProxy rewrites it" below). HAProxy is the edge (the firewall only DNATs), so a client-supplied `X-Forwarded-For` is **discarded**. Otherwise a client could put any IP first in the chain and impersonate it towards the WAF (rate limits, exceptions, learning). Tested: a request with `X-Forwarded-For: 6.6.6.6` reaches the backend as `10.90.30.10, …` |
 | `use_backend be_appN if { req.hdr(host),field(1,:) -i appN… }` | Host-based routing. Unknown hosts get **404** (`be_unknown`) |
 | `option forwardfor` | Adds `X-Forwarded-For: <client IP>`. The asset uses it as source identity ([chapter 4](04-infinity-portal.md)) |
 | `balance leastconn` | New requests go to the agent with the fewest active connections |
@@ -50,6 +50,51 @@ backend be_app1
 | `listen stats` on `<node IP>:8404` | Stats page per node, bound to the node's own IP (not the VIP), password from `.env` |
 
 [`configs/sysctl/99-waflab.conf`](../configs/sysctl/99-waflab.conf) sets `net.ipv4.ip_nonlocal_bind = 1`. It is **required**: HAProxy binds the VIP on every node, and on a node that does not hold the VIP it could not start without it ([chapter 7](07-keepalived.md) tests a reboot of a standby node).
+
+### X-Forwarded-For: why HAProxy rewrites it, and when not to
+
+**Assumption of this design: nothing sits in front of HAProxy except the perimeter firewall, and the firewall only does DNAT (no source NAT).** If that is not your case, read "If there is a proxy in front" below before deploying.
+
+**How HAProxy knows the real client IP.** It does not read it from a header. It takes the **source address of the TCP connection** it receives (`src`). The firewall only changes the destination (public IP → VIP) and leaves the source untouched, so `src` is the client. `option forwardfor` writes that `src` into `X-Forwarded-For`, which reaches the agent (asset source identity = X-Forwarded-For) and the backend.
+
+**The problem.** `X-Forwarded-For` is an ordinary request header, and **any client can send one with any value**. By default `option forwardfor` *appends* the client IP to an existing header instead of replacing it. Before the fix, a request with `X-Forwarded-For: 6.6.6.6` reached the backend as:
+
+```
+xff = "6.6.6.6, 10.90.30.10, 10.90.20.11"      ← forged value first
+```
+
+Anything that reads the first entry is fooled: the application and its logs, IP-based rate limits, IP exceptions, the "trusted users" learning. *(Not measured: which entry the agent itself would have used in that case. With trusted sources configured it may have skipped the forged entry. The deletion removes the question.)*
+
+**Why deleting is correct here.** With only a DNAT firewall in front, **no legitimate component ever adds `X-Forwarded-For` before HAProxy**. A header that arrives is always client-supplied, so HAProxy drops it and writes its own:
+
+```haproxy
+http-request del-header X-Forwarded-For    # frontend: discard what the client sent
+option forwardfor                          # defaults: add X-Forwarded-For: <src> (the real client)
+```
+
+Verified in the lab: the same request arrives as `10.90.30.10, …`, and the Infinity Portal logs show Source Identifier `10.90.30.10` with `6.6.6.6` nowhere ([chapter 8](08-firewall-dnat.md)).
+
+**If there is a proxy in front.** A CDN, a reverse proxy, an L7 load balancer, or a firewall that does **source NAT** changes the picture:
+
+- HAProxy's `src` is now **that proxy's IP**, not the client's.
+- The real client IP arrives in the `X-Forwarded-For` **that proxy added**.
+- Deleting the header would **lose the client IP**, and the WAF would see every request as coming from the proxy.
+
+In that case **skip the rewrite for the proxy's traffic**, but keep it for everything else, so direct clients still cannot forge the header:
+
+```haproxy
+frontend fe_https
+    acl from_trusted_proxy src -f /etc/haproxy/trusted-proxies.lst    # one IP/CIDR per line: your upstream proxies
+    http-request del-header X-Forwarded-For unless from_trusted_proxy
+```
+
+`option forwardfor` then appends the proxy's IP, so the agent receives `<client>, <proxy>`. In the **Infinity Portal asset**, add the upstream proxy's IPs to **Trusted Sources** as well as the HAProxy nodes, so the agent skips those hops and uses the client. Check Point's documentation asks for the previous proxy hops when there is more than one reverse proxy in front of the WAF.
+
+If the only thing in front is a proxy you fully control and you prefer the simplest option, you can remove the `http-request del-header X-Forwarded-For` line altogether. Then **make sure clients cannot reach the VIP without going through that proxy**, or the forgery problem comes back.
+
+Two variants: an **L4 / TCP load balancer** cannot add headers, so use the PROXY protocol between it and HAProxy (`accept-proxy` on the `bind`). A **CDN** usually also sends its own client-IP header (for example `CF-Connecting-IP`); trust it only from the CDN's published ranges.
+
+> **Not validated in this lab.** The lab has no proxy in front of HAProxy. Only the no-proxy case was tested.
 
 ### Health checks show up in the WAF logs
 

@@ -77,7 +77,7 @@ keepalived implements **VRRP**, the protocol that elects which node holds the VI
 An open-source reverse proxy and load balancer. It runs on **every** node with an **identical** configuration, but only the VIP owner receives traffic. It:
 
 - **terminates the client TLS** with each app's certificate, chosen by SNI,
-- **deletes any `X-Forwarded-For` the client sent** and adds its own with the real client IP,
+- **deletes any `X-Forwarded-For` the client sent** and adds its own with the real client IP (the TCP source, which is the client because the firewall does no source NAT). This **assumes there is no proxy in front of HAProxy**; see [decision 3](#4-design-decisions-that-matter-read-before-building),
 - **routes by Host** to one pool per application (`be_app1`, `be_app2`). **Each pool contains every node's agent**,
 - **balances** (`leastconn`) and **health-checks** each agent end to end, per app,
 - **retries** a failed connection on another agent, so the client does not see the error.
@@ -138,7 +138,7 @@ Each of these was found or confirmed in the lab. Getting one wrong produces a se
 |---|---|---|
 | 1 | **The agent's NGINX listens on the port of the asset URL (443)**, on the node's own IP. HAProxy listens on the **VIP** (and 127.0.0.1) | The agent matches an asset on **host AND listening port** (`EqualListeningPort(443)` in the policy). On 8443 **nothing was inspected and nothing was logged**, and in Detect mode that is invisible. [4.2](docs/04-infinity-portal.md) |
 | 2 | **`net.ipv4.ip_nonlocal_bind = 1`** on every node | HAProxy cannot start on a node that does not hold the VIP |
-| 3 | HAProxy **deletes the client's `X-Forwarded-For`** before adding its own | A client can choose the IP the WAF sees: rate limits, exceptions and learning become spoofable |
+| 3 | HAProxy **deletes the client's `X-Forwarded-For`** before adding its own. **Assumes no proxy in front**: HAProxy takes the client IP from the TCP source, which is the client because the firewall only DNATs | Without it a client can forge the IP that the application (and anything reading XFF) sees: rate limits, exceptions and learning become spoofable. **If a proxy, CDN or SNAT device is in front**, its XFF carries the real client IP, so do not delete it for that proxy's traffic (`del-header … unless` the source is the trusted proxy) and add the proxy to the asset's Trusted Sources. [Chapter 6](docs/06-haproxy.md#x-forwarded-for-why-haproxy-rewrites-it-and-when-not-to) |
 | 4 | **One HAProxy pool per app**, each with **its own Host health check**, all with the same agents | A single shared check would take every app down when one app's backend fails |
 | 5 | keepalived track script **without `weight`** (failure → FAULT), together with **`nopreempt`** | With `weight` + `nopreempt` a hung HAProxy **does not move the VIP**: the backup is not allowed to preempt |
 | 6 | The track script checks that HAProxy **answers** (`curl -m 2 http://127.0.0.1/`), not only that it runs | A frozen HAProxy passes a `killall -0` / `pidof` check |
@@ -211,7 +211,7 @@ The repository's scripts automate every step on the lab (see [section 9](#9-the-
 1. **Policy → Profiles → New**, type **Linux** (NGINX add-on). Give it a name, then click **Enforce**.
 2. **Copy the token** (profile → *Authentication*). Keep it in a secret store, never in git.
 3. **Create one Web Application asset per app.** URL = the public URL (`https://app1.example.com`), profile = the Linux profile, practice = Web Application Best Practice in **Detect** at first.
-4. In each asset, set **Source identity: X-Forwarded-For** and add the **WAF nodes' IPs** as trusted sources.
+4. In each asset, set **Source identity: X-Forwarded-For** and add the **WAF nodes' IPs** as trusted sources. If a proxy sits in front of the WAF nodes, add its IPs too (decision 3).
 5. **Publish** and **Enforce**.
 6. Optional but recommended: make sure the **log trigger** does not log every web request. Otherwise HAProxy's health checks produce about 6 log events per second ([chapter 6](docs/06-haproxy.md)).
 
@@ -252,7 +252,7 @@ The repository's scripts automate every step on the lab (see [section 9](#9-the-
        bind <VIP>:80
        bind <VIP>:443 ssl crt-list /etc/haproxy/crt-list.txt alpn h2,http/1.1
        bind 127.0.0.1:80
-       http-request del-header X-Forwarded-For
+       http-request del-header X-Forwarded-For      # assumes NO proxy in front (decision 3)
        http-request redirect scheme https code 301 unless { ssl_fc }
        use_backend be_app1 if { req.hdr(host),field(1,:) -i app1.example.com }
        default_backend be_unknown

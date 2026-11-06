@@ -54,7 +54,7 @@ PASS host LAN 192.168.1.20:443 → VIP
 
 "Real IP preserved" means that the first `X-Forwarded-For` entry the backend receives is `10.90.30.10`. The full chain is `10.90.30.10, <HAProxy node IP>`: HAProxy adds the client, and the agent's NGINX appends the HAProxy node.
 
-HAProxy discards any `X-Forwarded-For` sent by the client ([chapter 6](06-haproxy.md)), so the client cannot choose the IP the WAF sees. Tested: `X-Forwarded-For: 6.6.6.6` from the client still arrives as `10.90.30.10, …`.
+HAProxy discards any `X-Forwarded-For` sent by the client, so the client cannot choose the IP the WAF sees. This assumes the firewall is the only thing in front of HAProxy and does no source NAT. With a proxy or SNAT in front, see [chapter 6, "X-Forwarded-For: why HAProxy rewrites it, and when not to"](06-haproxy.md#x-forwarded-for-why-haproxy-rewrites-it-and-when-not-to). Tested: `X-Forwarded-For: 6.6.6.6` from the client still arrives as `10.90.30.10, …`.
 
 **Confirmed in the Infinity Portal logs.** Every event for traffic through the firewall and the VIP shows two fields:
 

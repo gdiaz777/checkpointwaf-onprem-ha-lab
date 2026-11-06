@@ -36,8 +36,11 @@ frontend fe_https
     bind __VIP__:443 ssl crt-list /etc/haproxy/crt-list.txt alpn h2,http/1.1
     bind 127.0.0.1:80                    # keepalived track script
     bind 127.0.0.1:443 ssl crt-list /etc/haproxy/crt-list.txt alpn h2,http/1.1   # local tests
-    # HAProxy is the edge (the firewall only DNATs): never trust a client-supplied
-    # X-Forwarded-For. option forwardfor then adds the real client IP.
+    # ASSUMPTION: nothing in front of HAProxy but a DNAT-only firewall, so HAProxy is the
+    # edge and any incoming X-Forwarded-For was written by the client (forgeable): drop it,
+    # option forwardfor then adds the real client IP (the TCP source).
+    # If a proxy / CDN / SNAT device sits in front, its XFF carries the client IP: do NOT
+    # delete it for that proxy's traffic (see docs/06-haproxy.md, "X-Forwarded-For").
     http-request del-header X-Forwarded-For
     http-request redirect scheme https code 301 unless { ssl_fc }
     http-request set-header X-Forwarded-Proto https
