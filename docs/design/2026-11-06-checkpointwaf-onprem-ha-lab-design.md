@@ -20,7 +20,7 @@ Check Point WAF has no built-in HA between agents. This project builds, tests an
 
 The firewall DNATs the published IP to the VIP. Adding capacity means adding another identical node.
 
-The deliverable is a **public GitHub repository** (`gdiaz777/cgwaf-onprem-ha-lab`, written in English). It holds a step-by-step guide that a customer engineer can follow on vSphere, plus every config file and helper script used. The guide is written from a real lab built on a single Ubuntu host with KVM. **Every step in the guide has actually been executed, and every claimed behaviour has been observed and measured.**
+The deliverable is a **public GitHub repository** (`gdiaz777/checkpointwaf-onprem-ha-lab`, written in English). It holds a step-by-step guide that a customer engineer can follow on vSphere, plus every config file and helper script used. The guide is written from a real lab built on a single Ubuntu host with KVM. **Every step in the guide has actually been executed, and every claimed behaviour has been observed and measured.**
 
 The guide must be generic. It must not reference any specific customer.
 
@@ -87,7 +87,7 @@ The guide must be generic. It must not reference any specific customer.
 | Agent | Check Point WAF **Linux** installer inside each VM (reverse-proxy mode), not Docker |
 | Load balancing | HAProxy (Ubuntu package) on every node, identical config on all nodes |
 | VIP / failover | keepalived, VRRP unicast, `nopreempt`, health-tracking script for HAProxy |
-| Language / visibility | English, public GitHub repo `gdiaz777/cgwaf-onprem-ha-lab` |
+| Language / visibility | English, public GitHub repo `gdiaz777/checkpointwaf-onprem-ha-lab` |
 | License / framing | MIT license. The README carries a disclaimer: community lab guide, not official Check Point documentation, not supported by Check Point |
 | Published apps | Two: `app1.waflab.example` and `app2.waflab.example`, each with its own asset, certificate and backend VM |
 | Not executable here | vSphere and Check Point NAT content, labelled "Not validated in this lab" |
@@ -150,7 +150,7 @@ The guide must be generic. It must not reference any specific customer.
 ## 10. Repository layout (builder's call, adjustable)
 
 ```
-cgwaf-onprem-ha-lab/
+checkpointwaf-onprem-ha-lab/
 ├── README.md                    architecture, diagram, quick start, chapter index
 ├── docs/
 │   ├── 01-lab-host.md           KVM/libvirt setup (lab only)

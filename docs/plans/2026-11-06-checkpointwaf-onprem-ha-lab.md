@@ -22,11 +22,11 @@
 - nftables/iptables on the host
 - `gh` CLI
 
-**Spec:** `docs/design/2026-11-06-cgwaf-onprem-ha-lab-design.md` (approved). Read it before any task.
+**Spec:** `docs/design/2026-11-06-checkpointwaf-onprem-ha-lab-design.md` (approved). Read it before any task.
 
 ## Global Constraints
 
-- Repo root is this repository. GitHub repo is `gdiaz777/cgwaf-onprem-ha-lab`, **public**, MIT license, all content in **English**.
+- Repo root is this repository. GitHub repo is `gdiaz777/checkpointwaf-onprem-ha-lab`, **public**, MIT license, all content in **English**.
 - The repo has **no reference to any customer**. FQDNs are `app1.waflab.example` and `app2.waflab.example` only.
 - **No secrets are ever committed:** agent tokens, private keys, lab certificates, passwords, tenant or profile IDs.
   - Secrets go in `.env` (git-ignored) and `certs/` (git-ignored).
@@ -382,4 +382,4 @@
   - `tools/check-secrets.sh $(git ls-files)` is clean,
   - `git log -p | grep -iE 'BEGIN .*PRIVATE|WAF_TOKEN=[^<]'` is empty,
   - a forbidden-words scan over the full history is empty.
-- [ ] **Step 4:** Ask Gabriel for explicit confirmation to publish. Only then run `gh repo create gdiaz777/cgwaf-onprem-ha-lab --public --source . --push --description "..."` and give him the URL.
+- [ ] **Step 4:** Ask Gabriel for explicit confirmation to publish. Only then run `gh repo create gdiaz777/checkpointwaf-onprem-ha-lab --public --source . --push --description "..."` and give him the URL.
