@@ -165,10 +165,21 @@ Fill this in for your environment. Lab values are shown as an example.
 | Public IP on the firewall | (lab: `10.90.30.1`) | |
 | VRRP `virtual_router_id` (unique on the VLAN) | `51` | |
 
-### Sizing (starting point)
+### Sizing and limits
 
-- **WAF node:** 2 vCPU, 2 GB RAM, 20 GB disk, Ubuntu Server 24.04 LTS. Size the vCPUs for the case where the node holds the VIP: its HAProxy terminates **all** client TLS and its agent also inspects its share.
-- **Number of nodes:** 2 for HA. Add nodes for capacity (chapter 10). Losing one node must leave enough capacity on the rest.
+> Analysis, not load-tested. Full detail in [chapter 14](docs/14-sizing-and-limits.md).
+
+- **All nodes identical, each sized for the worst case.** Any node can become the VIP owner, so never give the current VIP owner more resources than the others: after a failover a smaller node would inherit the whole HAProxy load. Worst case = the node holds the VIP **and** another node is down:
+
+  `CPU per node ≥ HAProxy for 100 % of the traffic + agent inspection for traffic / (N − 1)`
+
+  With 2 nodes, each one must carry **everything alone**.
+- **Adding nodes scales inspection, not HAProxy.** Only one HAProxy is active. Its ceiling is mostly **new TLS connections per second** (it terminates all client TLS and re-encrypts to the agents), plus the NIC (traffic crosses it 2–3 times).
+- **The first limit you will hit is NGINX's default `worker_connections 768`.** That is about 768 concurrent requests per node, because each request uses 2 connections. Raise it (`worker_connections 16384`, `worker_rlimit_nofile 65535`).
+- **HAProxy `maxconn`** defaults to the file-descriptor limit (262 113 on the lab nodes). Set it explicitly.
+- **Health checks grow with N² × apps** (6/s in the lab with 3 nodes and 2 apps). With many nodes or apps, check each agent once or lengthen `inter`.
+- **Measure before production:** load the VIP (new-connection-heavy and keep-alive mixes), **repeat with one node down**, and size on the N − 1 result with headroom.
+- **Lab starting point:** 2 vCPU, 2 GB RAM, 20 GB disk, Ubuntu Server 24.04 LTS per node. That was enough for the functional tests, but it is not a production size.
 
 ### Network flows to allow
 
@@ -411,7 +422,7 @@ To rebuild it, follow chapters 1 → 8 or the quick start in the [README](README
 
 - **vSphere** (chapter 12) and the **Check Point NAT rule** (chapter 8) are reference material. They were not executed.
 - **Fail-close** mode of the agent was not tested.
-- **Throughput and sizing** were not benchmarked. The probes measure availability, not capacity.
-- **Only one HAProxy is active** at a time (the VIP owner). Very large deployments may prefer a dedicated HAProxy/keepalived pair in front of agent-only nodes.
+- **Throughput and sizing** were not benchmarked. The probes measure availability, not capacity. [Chapter 14](docs/14-sizing-and-limits.md) explains the limits and how to measure them.
+- **Only one HAProxy is active** at a time (the VIP owner). Very large deployments may prefer a dedicated, identical HAProxy/keepalived pair in front of agent-only nodes, or several active VIPs ([chapter 14](docs/14-sizing-and-limits.md)).
 - **No connection state is synchronized** between nodes. When the VIP owner fails, in-flight connections are lost and clients reconnect.
 - The portal log analysis covered the events of these tests. Check your own log trigger and retention settings.

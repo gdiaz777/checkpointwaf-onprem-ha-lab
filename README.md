@@ -51,6 +51,7 @@ Every node blocks attacks in Prevent mode (`EXPECT_WAF=1 bash tests/test_agent_p
 11. [Certificates](docs/11-certificates.md): where they live, rotation, expiry
 12. [vSphere](docs/12-vsphere.md): what changes on VMware *(not validated in the lab)*
 13. [Troubleshooting](docs/13-troubleshooting.md)
+14. [Sizing and limits](docs/14-sizing-and-limits.md): identical nodes sized for the worst case, where the bottleneck is, how to measure *(analysis, not load-tested)*
 
 ## Lab quick start
 
@@ -94,7 +95,7 @@ lab/          VM factory (cloud-init), deploy scripts, host firewall, add/remove
 tests/        probe + summarizer (pytest), integration checks, failure scenarios, results/
 tools/        vip-owner, cert expiry check, secret scanner + pre-commit hook
 GUIDE.md      the complete guide (start here)
-docs/         detailed chapters 01–13 with evidence, diagrams (img/), design and plan
+docs/         detailed chapters 01–14 with evidence, diagrams (img/), design and plan
 ```
 
 `lab/inventory.env` is the single source of truth. `WAF_NODES` drives the HAProxy server lines, the keepalived peers and priorities, and every test.
