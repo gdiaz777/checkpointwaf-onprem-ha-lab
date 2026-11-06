@@ -42,10 +42,10 @@ sudo nginx -t && grep load_module /etc/nginx/nginx.conf
 | Client IP is the firewall's IP | Source NAT (hide NAT) on the perimeter firewall towards the VIP | DNAT only, keep the original source ([chapter 8](08-firewall-dnat.md)) |
 | After a reboot the client gets `Could not resolve host: app1.waflab.example` (lab) | cloud-init's `manage_etc_hosts` rewrote `/etc/hosts` | `lab/setup-client.sh` also writes cloud-init's hosts template. `lab/lab-start.sh` runs it |
 | New connections from outside to the VIP are rejected (lab) | libvirt NAT networks only allow established inbound traffic | `lab/host-fw.sh up` inserts an ACCEPT for the VIP ahead of libvirt's chains. Re-run it after host reboots or libvirt restarts |
-| A `git commit` is refused with `pre-commit: possible secret found` | `tools/check-secrets.sh` matched a token, a private key or a forbidden word | Remove the secret from the staged file. Secrets belong in `.env` / `certs/` (git-ignored) |
 
 ## Lab tooling pitfalls (if you reuse the scripts)
 
 - `ssh … | grep -q` under `set -o pipefail` can loop forever: `grep -q` exits early, `ssh` gets SIGPIPE and the pipeline "fails". Capture the output first, then grep.
 - `pkill -f <pattern>` run through SSH or `bash -c` can match **its own** command line. The scenario runner stops the probes through a PID file instead.
 - `.env` is `source`d by the scripts, so quote every value (`KEY="value"`). An unquoted `<placeholder>` is a shell redirection.
+- If you installed the pre-commit hook (`tools/install-hooks.sh`), a commit is refused with `pre-commit: possible secret found` when [`tools/check-secrets.sh`](../tools/check-secrets.sh) matches a token, a private key or a forbidden word in the staged files. It prints `file:line:rule`. Move the secret to `.env` / `certs/` (git-ignored).
