@@ -40,6 +40,7 @@ sudo nginx -t && grep load_module /etc/nginx/nginx.conf
 | The WAF sees a client-chosen source IP | HAProxy appended to a client-supplied `X-Forwarded-For` | `http-request del-header X-Forwarded-For` in the frontend ([chapter 6](06-haproxy.md)) |
 | Clients get 403s/blocks attributed to a node IP, or learning sees few distinct users | The asset is not using `X-Forwarded-For` as source identity | Asset → Source identity: X-Forwarded-For. Trusted sources: the HAProxy node IPs ([chapter 4](04-infinity-portal.md)) |
 | Client IP is the firewall's IP | Source NAT (hide NAT) on the perimeter firewall towards the VIP | DNAT only, keep the original source ([chapter 8](08-firewall-dnat.md)) |
+| After a reboot the client gets `Could not resolve host: app1.waflab.example` (lab) | cloud-init's `manage_etc_hosts` rewrote `/etc/hosts` | `lab/setup-client.sh` also writes cloud-init's hosts template. `lab/lab-start.sh` runs it |
 | New connections from outside to the VIP are rejected (lab) | libvirt NAT networks only allow established inbound traffic | `lab/host-fw.sh up` inserts an ACCEPT for the VIP ahead of libvirt's chains. Re-run it after host reboots or libvirt restarts |
 | A `git commit` is refused with `pre-commit: possible secret found` | `tools/check-secrets.sh` matched a token, a private key or a forbidden word | Remove the secret from the staged file. Secrets belong in `.env` / `certs/` (git-ignored) |
 

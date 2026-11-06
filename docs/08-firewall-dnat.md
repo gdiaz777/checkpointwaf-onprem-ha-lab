@@ -29,12 +29,14 @@ host firewall up: 10.90.30.1,192.168.1.20 :80,443 → 10.90.20.100 ; 10.90.30.0/
 
 The script is idempotent: `up` removes the previous rules first. The rules are **not persistent**. Run `up` again after a host reboot or a libvirt network restart.
 
-On the client VM, the FQDNs resolve to the published IP and the lab CA is trusted:
+On the client VM, the FQDNs must resolve to the published IP and the lab CA must be trusted. [`lab/setup-client.sh`](../lab/setup-client.sh) does both, and is idempotent:
 
 ```bash
-echo "10.90.30.1 app1.waflab.example app2.waflab.example" | sudo tee -a /etc/hosts
-# lab CA copied to /home/lab/ca.crt
+lab/setup-client.sh
+# 10.90.30.1      app1.waflab.example app2.waflab.example
 ```
+
+It writes the hosts entry to `/etc/hosts` **and** to `/etc/cloud/templates/hosts.debian.tmpl`, because cloud-init (`manage_etc_hosts: true`) rewrites `/etc/hosts` at every boot. Without the template, the entry disappears after a reboot.
 
 ## 8.2 Verify
 

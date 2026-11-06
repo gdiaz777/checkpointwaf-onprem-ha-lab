@@ -75,6 +75,16 @@ lab/host-fw.sh up
 bash tests/test_firewall.sh                             # end to end from the client VM
 ```
 
+## Stop and start the lab
+
+```bash
+lab/lab-stop.sh     # clean shutdown of all VMs + removes the host firewall rules (nothing is deleted)
+lab/lab-start.sh    # boots everything in the right order, re-applies the firewall rules,
+                    # waits for the agents and runs the health checks (~2 min)
+```
+
+`lab/lab-down.sh` is different: it **deletes** all lab VMs and their disks.
+
 ## Repository layout
 
 ```

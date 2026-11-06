@@ -68,7 +68,15 @@ waiting for client  ready
 
 `virt-install` warns that 1 GB is below the recommended RAM for Ubuntu 24.04. It is enough for a backend serving a static page and for a curl client.
 
-[`lab/ssh.sh`](../lab/ssh.sh) opens SSH to a VM by name, for example `lab/ssh.sh waf-node1 hostname`. [`lab/destroy-vm.sh`](../lab/destroy-vm.sh) and [`lab/lab-down.sh`](../lab/lab-down.sh) delete VMs.
+[`lab/ssh.sh`](../lab/ssh.sh) opens SSH to a VM by name, for example `lab/ssh.sh waf-node1 hostname`.
+
+| Script | What it does |
+|---|---|
+| [`lab/lab-stop.sh`](../lab/lab-stop.sh) | **Power off** the whole lab: clean shutdown of every VM (client, WAF nodes from the last to node1, backends) and removal of the host firewall rules. Nothing is deleted |
+| [`lab/lab-start.sh`](../lab/lab-start.sh) | **Power on** again (also after a host reboot): backends, node1 first (it wins the VIP), the other nodes, the client. It re-applies the host firewall rules and the client setup, waits for the agents and runs the health checks. Takes about 1 min 45 s |
+| [`lab/destroy-vm.sh`](../lab/destroy-vm.sh) / [`lab/lab-down.sh`](../lab/lab-down.sh) | **Delete** one VM / all lab VMs and their disks |
+
+Measured stop → start cycle: all VMs back, agents `Running` with the same policy version, VIP on node1, both apps reachable from the client through the firewall, attacks still blocked. The agents reconnect to the Infinity Portal by themselves. Note that an agent must reach the portal at least every 45 days to stay active (from the installer output).
 
 ## 2.5 Verify
 

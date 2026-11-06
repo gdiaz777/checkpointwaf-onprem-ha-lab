@@ -401,7 +401,7 @@ Everything except vSphere and the Check Point NAT rule was executed on one Ubunt
 | `backend1`, `backend2` (NGINX echo apps) | your web servers |
 | lab CA ([`lab/certs/`](lab/certs/)) | your public CA / PKI |
 
-To rebuild it, follow chapters 1 → 8 or the quick start in the [README](README.md). [`lab/inventory.env`](lab/inventory.env) is the single source of truth for names, IPs and ports. `WAF_NODES` drives the HAProxy servers, the keepalived peers and every test. Secrets live in `.env` and `certs/`, both git-ignored, and a pre-commit hook ([`tools/check-secrets.sh`](tools/check-secrets.sh)) blocks tokens and private keys.
+To rebuild it, follow chapters 1 → 8 or the quick start in the [README](README.md). Day to day, `lab/lab-stop.sh` powers the whole lab off (VMs shut down cleanly, firewall rules removed, nothing deleted) and `lab/lab-start.sh` brings it back in about 2 minutes: backends, node1 first so it wins the VIP, the other nodes, the client, firewall rules, then it waits for the agents and runs the health checks. [`lab/inventory.env`](lab/inventory.env) is the single source of truth for names, IPs and ports. `WAF_NODES` drives the HAProxy servers, the keepalived peers and every test. Secrets live in `.env` and `certs/`, both git-ignored, and a pre-commit hook ([`tools/check-secrets.sh`](tools/check-secrets.sh)) blocks tokens and private keys.
 
 > [`lab/ssh.sh`](lab/ssh.sh) disables SSH host-key checking for convenience, which is acceptable **only in the lab**. The deploy scripts push private keys and the agent token through it, so outside the lab set `LAB_SSH_OPTS` to use your normal host-key verification.
 
