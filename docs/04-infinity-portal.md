@@ -1,10 +1,10 @@
 # 4. Infinity Portal: profile and assets
 
-The agents are managed from the Infinity Portal (CloudGuard WAF). You need **one profile** for all WAF nodes and **one asset per published application**.
+The agents are managed from the Infinity Portal (Check Point WAF). You need **one profile** for all WAF nodes and **one asset per published application**.
 
 ## 4.1 Deployment type: Linux (NGINX add-on)
 
-CloudGuard WAF on Linux runs as an **add-on to NGINX**. You install and manage NGINX yourself. Check Point's installer adds a dynamic module (`ngx_cp_attachment_module.so`) that hands every proxied request to the local agent for inspection. Source: [Deploy on Linux / NGINX](https://waf-doc.inext.checkpoint.com/getting-started/deploy-enforcement-point/linux/nginx). The [deployment overview](https://waf-doc.inext.checkpoint.com/getting-started/deploy-enforcement-point) lists this row as *Reverse Proxy: "Provided and managed by Admin"*.
+Check Point WAF on Linux runs as an **add-on to NGINX**. You install and manage NGINX yourself. Check Point's installer adds a dynamic module (`ngx_cp_attachment_module.so`) that hands every proxied request to the local agent for inspection. Source: [Deploy on Linux / NGINX](https://waf-doc.inext.checkpoint.com/getting-started/deploy-enforcement-point/linux/nginx). The [deployment overview](https://waf-doc.inext.checkpoint.com/getting-started/deploy-enforcement-point) lists this row as *Reverse Proxy: "Provided and managed by Admin"*.
 
 That is what makes this architecture possible on a single VM:
 
@@ -47,7 +47,7 @@ So **the port NGINX listens on must be the port in the asset URL**, which is why
 
 1. Click **Enforce** right after creating it. The documentation warns that a new profile must be enforced before its token works.
 2. Copy the token from the profile's **Authentication** section.
-3. Put it in `.env` (git-ignored), quoted: `CGWAF_TOKEN="…"`. Never put it on a command line or in a file that is committed. `tools/check-secrets.sh` blocks commits that contain it.
+3. Put it in `.env` (git-ignored), quoted: `WAF_TOKEN="…"`. Never put it on a command line or in a file that is committed. `tools/check-secrets.sh` blocks commits that contain it.
 
 **All WAF nodes register with the same token and the same profile**, so they all receive the same policy. Adding a node needs nothing new in the portal ([chapter 10](10-scale-out.md)).
 

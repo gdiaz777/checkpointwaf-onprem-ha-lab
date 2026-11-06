@@ -1,12 +1,12 @@
-# 5. NGINX and the CloudGuard WAF agent on each node
+# 5. NGINX and the Check Point WAF agent on each node
 
-Each WAF node runs its own NGINX reverse proxy for both apps, with the CloudGuard WAF agent attached to it.
+Each WAF node runs its own NGINX reverse proxy for both apps, with the Check Point WAF agent attached to it.
 
 ```
 HAProxy (VIP owner) ──TLS──▶ NGINX <node IP>:443 on this node ──TLS──▶ backend1 / backend2
                               │  ngx_cp_attachment_module
                               ▼
-                       CloudGuard WAF agent (inspection, policy from the portal)
+                       Check Point WAF agent (inspection, policy from the portal)
 ```
 
 ## 5.1 Ports: both on 443, different addresses

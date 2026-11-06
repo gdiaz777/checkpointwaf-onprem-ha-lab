@@ -1,4 +1,4 @@
-# The complete guide: CloudGuard WAF on-prem HA without a load balancer
+# The complete guide: Check Point WAF on-prem HA without a load balancer
 
 > **Disclaimer:** community lab guide. This is **not** official Check Point documentation and it is **not** supported by Check Point. Validate everything in your own environment before using it in production.
 
@@ -29,14 +29,14 @@ The numbered chapters in [`docs/`](docs/) contain the full detail and the raw ev
 
 ## 1. The problem and the solution
 
-**The situation.** You want to protect web applications on-prem with Check Point CloudGuard WAF:
+**The situation.** You want to protect web applications on-prem with Check Point WAF:
 
 - you have a **perimeter firewall** (for example a Check Point cluster) in front of the apps,
 - you have a **virtualization platform** (for example VMware vSphere),
 - you have **no load balancer**,
 - you need **more than one WAF agent**: one is a single point of failure, and you may need the capacity.
 
-CloudGuard WAF agents do not form a cluster among themselves. Each one inspects the traffic it receives. Something has to spread traffic across the agents and stop sending it to a failed one. Normally that is a load balancer.
+Check Point WAF agents do not form a cluster among themselves. Each one inspects the traffic it receives. Something has to spread traffic across the agents and stop sending it to a failed one. Normally that is a load balancer.
 
 **The solution.** Build the "load balancer" into the WAF nodes themselves. Every WAF node is an identical VM running three pieces:
 
@@ -44,7 +44,7 @@ CloudGuard WAF agents do not form a cluster among themselves. Each one inspects 
 |---|---|
 | **keepalived** | Keeps **one floating IP (the VIP)** alive on exactly one node and moves it within seconds if that node or its HAProxy fails |
 | **HAProxy** | On the node that holds the VIP: receives client traffic, spreads it across **all** nodes' agents, health-checks them and retries failed connections elsewhere |
-| **NGINX + CloudGuard WAF agent** | The agent (Linux "NGINX add-on" deployment) inspects every request in NGINX and forwards it to the application |
+| **NGINX + Check Point WAF agent** | The agent (Linux "NGINX add-on" deployment) inspects every request in NGINX and forwards it to the application |
 
 The perimeter firewall just **DNATs the published IP to the VIP**. More capacity means adding another identical node, with **no change** on the firewall or in the Infinity Portal.
 
@@ -84,9 +84,9 @@ An open-source reverse proxy and load balancer. It runs on **every** node with a
 
 HAProxy does **not** inspect traffic. → [chapter 6](docs/06-haproxy.md)
 
-### NGINX + CloudGuard WAF agent ("nano agent")
+### NGINX + Check Point WAF agent ("nano agent")
 
-CloudGuard WAF on Linux is an **add-on to NGINX**:
+Check Point WAF on Linux is an **add-on to NGINX**:
 
 - You install and configure NGINX yourself.
 - Check Point's installer (`nanoegg`) adds a module (`ngx_cp_attachment_module.so`) that passes every request NGINX proxies to the local **agent**.
@@ -96,7 +96,7 @@ The agent's NGINX listens on **the node's own IP, port 443** and proxies to the 
 
 ### Infinity Portal: profile, asset, practice, token
 
-The SaaS management plane for CloudGuard WAF.
+The SaaS management plane for Check Point WAF.
 
 | Object | What it is | In this design |
 |---|---|---|

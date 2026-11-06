@@ -1,8 +1,8 @@
-# CloudGuard WAF on-prem HA lab — Implementation Plan
+# Check Point WAF on-prem HA lab — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build, test and document a two-app CloudGuard WAF HA lab with no load balancer. Every node runs HAProxy, keepalived and the agent. The guide is published as a public GitHub repo.
+**Goal:** Build, test and document a two-app Check Point WAF HA lab with no load balancer. Every node runs HAProxy, keepalived and the agent. The guide is published as a public GitHub repo.
 
 **Architecture:**
 - KVM/libvirt VMs on the Ubuntu host:
@@ -16,7 +16,7 @@
 **Tech Stack:**
 - Ubuntu 24.04 (host and guests), libvirt/QEMU, `virt-install`, cloud-init
 - HAProxy (Ubuntu package), keepalived, NGINX
-- CloudGuard WAF Linux agent
+- Check Point WAF Linux agent
 - openssl
 - Python 3 (stdlib only) for the probe and summary scripts, with pytest for those scripts
 - nftables/iptables on the host
@@ -68,7 +68,7 @@
 **Interfaces:**
 - Produces:
   - `tools/check-secrets.sh [paths...]`: exit 0 when clean, exit 1 when a finding exists, printing `file:line:rule`. With no arguments it scans the staged files.
-  - `.env` keys used later: `CGWAF_TOKEN` (agent registration token), `LAB_SSH_KEY` (path).
+  - `.env` keys used later: `WAF_TOKEN` (agent registration token), `LAB_SSH_KEY` (path).
 
 - [ ] **Step 1:** `git init`. `.gitignore` must contain `.env`, `certs/`, `*.key`, `*.pem`, `*.p12`, `*.qcow2`, `*.img`, `*.iso`, `tests/results/**/raw/`.
 - [ ] **Step 2: Write the failing test** `tests/test_check_secrets.sh`. It creates a temp dir with three files and asserts that `check-secrets.sh` exits 1 for each and 0 for a clean file:
@@ -78,7 +78,7 @@
 - [ ] **Step 3:** Run `bash tests/test_check_secrets.sh`. Expected: FAIL (script missing).
 - [ ] **Step 4:** Implement `tools/check-secrets.sh`. Rules:
   - PEM private key headers,
-  - `CGWAF_TOKEN=` followed by a non-placeholder value,
+  - `WAF_TOKEN=` followed by a non-placeholder value,
   - the token-like regex `\bcp-[A-Za-z0-9]{32,}\b`,
   - any file named `.env`,
   - the forbidden-word list read from `tools/forbidden-words.txt`. That file is git-ignored and lists customer names, so the list itself never ships.
@@ -157,7 +157,7 @@
 
 **Interfaces:**
 - Consumes: FQDNs, backend IPs and the lab CA from Task 3.
-- Produces: `CGWAF_TOKEN` in `.env`, plus the asset names `waflab-app1` and `waflab-app2` (used in the docs).
+- Produces: `WAF_TOKEN` in `.env`, plus the asset names `waflab-app1` and `waflab-app2` (used in the docs).
 
 - [ ] **Step 1:** Read the current official docs for the Linux deployment (`https://waf-doc.inext.checkpoint.com/getting-started/deploy-enforcement-point/linux` and its sub-pages) and decide the profile type. The expected type is Linux/embedded NGINX, in which case the local NGINX config is ours, which resolves design open point 1(a). Record the decision and the source URL in the doc.
 - [ ] **Step 2:** Give Gabriel exact instructions and **wait**:
@@ -166,7 +166,7 @@
   - practice in **Prevent** mode,
   - source identifier `X-Forwarded-For` with trusted sources `10.90.20.11`, `.12` and `.13`,
   - enforce.
-- [ ] **Step 3:** Gabriel pastes the token into `.env` himself (never in chat if avoidable). Verify with `grep -c '^CGWAF_TOKEN=.\+' .env` returning `1`.
+- [ ] **Step 3:** Gabriel pastes the token into `.env` himself (never in chat if avoidable). Verify with `grep -c '^WAF_TOKEN=.\+' .env` returning `1`.
 - [ ] **Step 4:** Write the doc with field values, no tenant identifiers, and screenshots only if Gabriel provides them. Commit.
 
 ### Task 5: Agent on node1 and node2, and the port collision
@@ -175,7 +175,7 @@
 - Create: `lab/deploy-agent.sh`, `configs/agent/nginx-waf.conf.tmpl` (if the profile is embedded NGINX), `docs/05-agent.md`
 
 **Interfaces:**
-- Consumes: `CGWAF_TOKEN`, the backend contract.
+- Consumes: `WAF_TOKEN`, the backend contract.
 - Produces: the agent listener `AGENT_PORT`, written into `lab/inventory.env`. The preferred value is `8443`. Each agent serves both FQDNs over TLS on `<node_ip>:AGENT_PORT`.
 
 - [ ] **Step 1:** Install the agent on node1 following the official procedure from Task 4. The token is read from `.env` and passed over ssh, never written into the repo.
@@ -380,6 +380,6 @@
 - [ ] **Step 2:** The troubleshooting chapter collects every problem actually hit during the build. The README gets the overview, diagram, prerequisites, a quick start (`lab-up.sh` → chapters in order), the results table from Task 10, the chapter index and the disclaimer.
 - [ ] **Step 3:** Full-repo checks:
   - `tools/check-secrets.sh $(git ls-files)` is clean,
-  - `git log -p | grep -iE 'BEGIN .*PRIVATE|CGWAF_TOKEN=[^<]'` is empty,
+  - `git log -p | grep -iE 'BEGIN .*PRIVATE|WAF_TOKEN=[^<]'` is empty,
   - a forbidden-words scan over the full history is empty.
 - [ ] **Step 4:** Ask Gabriel for explicit confirmation to publish. Only then run `gh repo create gdiaz777/cgwaf-onprem-ha-lab --public --source . --push --description "..."` and give him the URL.

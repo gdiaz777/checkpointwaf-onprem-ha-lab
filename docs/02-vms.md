@@ -4,7 +4,7 @@ All VMs run **Ubuntu Server 24.04 LTS** (official cloud image) and are configure
 
 | VM | Network | IP | vCPU / RAM / disk | Role |
 |---|---|---|---|---|
-| `waf-node1` | waflab | `10.90.20.11` | 2 / 2 GB / 20 GB | HAProxy + keepalived + CloudGuard WAF agent |
+| `waf-node1` | waflab | `10.90.20.11` | 2 / 2 GB / 20 GB | HAProxy + keepalived + Check Point WAF agent |
 | `waf-node2` | waflab | `10.90.20.12` | 2 / 2 GB / 20 GB | same |
 | `waf-node3` | waflab | `10.90.20.13` | 2 / 2 GB / 20 GB | same, added in [chapter 10](10-scale-out.md) |
 | `backend1` | waflab | `10.90.20.5` | 1 / 1 GB / 10 GB | web app 1 (`app1.waflab.example`) |
@@ -22,7 +22,7 @@ cp .env.example .env            # .env is git-ignored
 ssh-keygen -t ed25519 -N '' -C waflab -f ~/.ssh/waflab_ed25519
 ```
 
-`.env` holds `LAB_SSH_KEY` (the key above), and later `CGWAF_TOKEN` and `HAPROXY_STATS_PASS`. Keep the values quoted (`KEY="value"`), because the scripts `source` the file.
+`.env` holds `LAB_SSH_KEY` (the key above), and later `WAF_TOKEN` and `HAPROXY_STATS_PASS`. Keep the values quoted (`KEY="value"`), because the scripts `source` the file.
 
 ## 2.2 Download the cloud image
 

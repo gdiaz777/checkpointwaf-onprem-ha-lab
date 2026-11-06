@@ -52,7 +52,7 @@ def traffic():
     ys = [90, 230, 370]
     for i, y in enumerate(ys, 1):
         d.rect(930, y, 330, 120, rounded=True, stroke_width=2, size=13,
-               label=f"waf-node{i}  ·  NGINX + CloudGuard WAF agent\nlistens 10.90.20.1{i}:443 (node's own IP)\n"
+               label=f"waf-node{i}  ·  NGINX + Check Point WAF agent\nlistens 10.90.20.1{i}:443 (node's own IP)\n"
                      f"② TLS from HAProxy (app cert)\nasset match = Host AND port 443", **AG)
         d.arrow((820, 280), (930, y + 60), stroke=C.blue, stroke_width=2)
     d.text(846, 96, "② TLS\nre-encrypted\n+ verified", size=11, color=C.blue)

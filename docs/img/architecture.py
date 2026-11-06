@@ -1,4 +1,4 @@
-"""CloudGuard WAF on-prem HA without a load balancer: architecture + measured failure scenarios.
+"""Check Point WAF on-prem HA without a load balancer: architecture + measured failure scenarios.
 
 Usage: python3 docs/img/architecture.py docs/img/architecture.excalidraw
 """
@@ -25,7 +25,7 @@ RED, GREEN, AMBER = "#e03131", "#2f9e44", "#f08c00"
 # =====================================================================
 # 1) ARQUITECTURA
 # =====================================================================
-d.text(20, 0, "CloudGuard WAF on-prem HA · HAProxy + keepalived + agent on every node",
+d.text(20, 0, "Check Point WAF on-prem HA · HAProxy + keepalived + agent on every node",
        size=26)
 d.text(20, 36, "No load balancer · perimeter firewall DNAT to a VIP · any hypervisor (lab: KVM, IPs from the lab)",
        size=15, color=C.gray)
@@ -64,7 +64,7 @@ def vm(x0, name, ip, active, future=False):
                stroke=C.gray, bg="#f1f3f5", label="keepalived\nBACKUP",
                label_color=C.gray)
         d.rect(x0 + 20, 580, 280, 100, size=13, rounded=True, style="dashed",
-               stroke=AG["stroke"], bg="#fff0f6", label="NGINX + CG WAF agent\nnode IP:443 (registers with\nthe same profile/token)",
+               stroke=AG["stroke"], bg="#fff0f6", label="NGINX + Check Point WAF agent\nnode IP:443 (registers with\nthe same profile/token)",
                label_color=AG["label_color"])
         return
     if active:
@@ -77,7 +77,7 @@ def vm(x0, name, ip, active, future=False):
     d.rect(x0 + 210, 382, 95, 75, size=12, rounded=True,
            label="keepalived\n" + ("MASTER" if active else "BACKUP"), **KA)
     d.rect(x0 + 20, 580, 280, 100, stroke_width=2, size=13, rounded=True,
-           label="NGINX + CG WAF agent\nnode IP:443 (inspection)", **AG)
+           label="NGINX + Check Point WAF agent\nnode IP:443 (inspection)", **AG)
 
 
 vm(100, "waf-node1", "10.90.20.11", active=True)
@@ -104,7 +104,7 @@ d.rect(410, 785, 300, 56, stroke_width=2, rounded=True, size=14,
 
 # Infinity Portal
 d.rect(1060, 75, 280, 70, stroke="#1971c2", bg="#e7f5ff", stroke_width=2, rounded=True,
-       label="Infinity Portal (CloudGuard WAF)\npolicy · assets · logs · status", size=13,
+       label="Infinity Portal (Check Point WAF)\npolicy · assets · logs · status", size=13,
        label_color="#1971c2")
 d.text(1060, 152, "All agents: outbound HTTPS to the portal\n(same profile & policy on every node)",
        size=12, color="#1971c2")
@@ -117,7 +117,7 @@ d.note(1380, 75, 330, 230,
        "3. HAProxy on node1 terminates TLS, adds XFF\n"
        "4. Routes by Host to be_app1 / be_app2,\n"
        "    each pool = ALL agents\n"
-       "5. Agent (NGINX + CG WAF) inspects\n"
+       "5. Agent (NGINX + Check Point WAF) inspects\n"
        "    and proxies to the app backend\n\n"
        "Agent inspects only if host AND port (443)\n"
        "match the asset → NGINX on node IP:443.\n"

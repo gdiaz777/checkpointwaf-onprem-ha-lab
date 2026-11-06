@@ -34,8 +34,8 @@ scan() { # scan <file-to-read> <name-to-report>
   # this script and its test contain the patterns on purpose
   case "$name" in *check-secrets.sh|*test_check_secrets.sh) return ;; esac
   while IFS=: read -r n _; do hit "$name" "$n" pem-private-key; done < <(grep -nI -E -- '^-----BEGIN ([A-Z]+ )?PRIVATE KEY-----' "$f")
-  while IFS=: read -r n _; do hit "$name" "$n" token-value; done < <(grep -nI -E 'CGWAF_TOKEN=["'\'']?[A-Za-z0-9_.-]{8,}' "$f")
-  # CloudGuard tokens: "cp-" + hyphenated alphanumeric segments (~75 chars)
+  while IFS=: read -r n _; do hit "$name" "$n" token-value; done < <(grep -nI -E 'WAF_TOKEN=["'\'']?[A-Za-z0-9_.-]{8,}' "$f")
+  # Check Point WAF tokens: "cp-" + hyphenated alphanumeric segments (~75 chars)
   while IFS=: read -r n _; do hit "$name" "$n" token-like; done < <(grep -nI -E '\bcp-[A-Za-z0-9-]{30,}' "$f")
   if [ -s "$WORDS" ]; then
     while read -r w; do

@@ -1,22 +1,22 @@
-# Design: CloudGuard WAF on-prem HA lab without a load balancer
+# Design: Check Point WAF on-prem HA lab without a load balancer
 
 Date: 2026-11-06
 Status: draft, pending approval (builder check done; answers incorporated)
 
 ## 1. Intent
 
-Many CloudGuard WAF on-prem customers have:
+Many Check Point WAF on-prem customers have:
 
 - a Check Point firewall cluster in front of their web apps,
 - a virtualization platform (typically VMware vSphere),
 - **no load balancer**,
 - and a need for **more than one WAF agent**, for availability and capacity.
 
-CloudGuard WAF has no built-in HA between agents. This project builds, tests and documents an architecture that solves this without dedicated load balancers. Every node is a VM that runs three things:
+Check Point WAF has no built-in HA between agents. This project builds, tests and documents an architecture that solves this without dedicated load balancers. Every node is a VM that runs three things:
 
 - **HAProxy**, which distributes traffic to all agents and health-checks them,
 - **keepalived**, which keeps one floating VIP (VRRP) alive across the nodes,
-- the **CloudGuard WAF agent**, which does the inspection.
+- the **Check Point WAF agent**, which does the inspection.
 
 The firewall DNATs the published IP to the VIP. Adding capacity means adding another identical node.
 
@@ -84,7 +84,7 @@ The guide must be generic. It must not reference any specific customer.
 |---|---|
 | Lab platform | KVM/libvirt VMs on this host (`virt-install` + cloud-init) |
 | Guest OS | Ubuntu Server 24.04 LTS cloud image |
-| Agent | CloudGuard WAF **Linux** installer inside each VM (reverse-proxy mode), not Docker |
+| Agent | Check Point WAF **Linux** installer inside each VM (reverse-proxy mode), not Docker |
 | Load balancing | HAProxy (Ubuntu package) on every node, identical config on all nodes |
 | VIP / failover | keepalived, VRRP unicast, `nopreempt`, health-tracking script for HAProxy |
 | Language / visibility | English, public GitHub repo `gdiaz777/cgwaf-onprem-ha-lab` |
@@ -102,7 +102,7 @@ The guide must be generic. It must not reference any specific customer.
        waf-node1 10.90.20.11       waf-node2 10.90.20.12       waf-node3 10.90.20.13 (scale-out)
        HAProxy :443 (VIP)          HAProxy (standby)           HAProxy (standby)
        keepalived                  keepalived                  keepalived
-       CG WAF agent :<agent port>  CG WAF agent                CG WAF agent
+       Check Point WAF agent :<agent port>  Check Point WAF agent                Check Point WAF agent
             └───────────────────────────┴───────────────────────────┘
                           │ HTTPS (asset app1)              │ HTTPS (asset app2)
                 backend1 10.90.20.5:443           backend2 10.90.20.6:443

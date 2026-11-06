@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Prepare a WAF node's NGINX reverse proxy and (optionally) install the
-# CloudGuard WAF agent on it.
+# Check Point WAF agent on it.
 # Usage: lab/deploy-agent.sh <node-name> [--install-agent]
 #   Without --install-agent: NGINX + certificates + site only (no inspection yet).
-#   With --install-agent: also runs Check Point's nanoegg installer with CGWAF_TOKEN from .env.
+#   With --install-agent: also runs Check Point's nanoegg installer with WAF_TOKEN from .env.
 set -euo pipefail
 NODE=$1 INSTALL=${2:-}
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -27,10 +27,10 @@ S 'sudo nginx -t -q && sudo systemctl enable -q nginx && { systemctl is-active -
 if [ "$INSTALL" = "--install-agent" ] && S 'sudo sh -c "command -v cpnano" >/dev/null'; then   # cpnano links into root-only /etc/cp
   echo "agent already installed on $NODE, skipping installer"
 elif [ "$INSTALL" = "--install-agent" ]; then
-  [[ "${CGWAF_TOKEN:-}" =~ ^[A-Za-z0-9] ]] || { echo "CGWAF_TOKEN not set in .env" >&2; exit 1; }
+  [[ "${WAF_TOKEN:-}" =~ ^[A-Za-z0-9] ]] || { echo "WAF_TOKEN not set in .env" >&2; exit 1; }
   # The token travels on SSH stdin and is read INSIDE the root shell, so it is not on the
   # ssh/sudo command lines (nor in sudo's auth.log). Note: the installer itself takes it as
   # an argument, so it is visible in the process list while nanoegg runs.
-  printf '%s\n' "$CGWAF_TOKEN" | S 'sudo bash -c '"'"'read -r T; cd /tmp && wget -q https://sc1.checkpoint.com/nanoagent/nanoegg -O nanoegg && chmod +x nanoegg && ./nanoegg --install --token "$T"'"'"''
+  printf '%s\n' "$WAF_TOKEN" | S 'sudo bash -c '"'"'read -r T; cd /tmp && wget -q https://sc1.checkpoint.com/nanoagent/nanoegg -O nanoegg && chmod +x nanoegg && ./nanoegg --install --token "$T"'"'"''
   S 'sudo cpnano -s | head -20'
 fi

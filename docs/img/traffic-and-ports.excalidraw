@@ -4,7 +4,7 @@
  "source": "https://excalidraw.com",
  "elements": [
   {
-   "id": "LILJarbfIp5lepdlsgSI",
+   "id": "J10JUNPVRVF2aC3PzYjd",
    "type": "text",
    "x": 20.0,
    "y": 0.0,
@@ -21,12 +21,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 90594983,
+   "seed": 307161170,
    "version": 1,
-   "versionNonce": 2058261584,
+   "versionNonce": 889295795,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "How one request flows: addresses, ports, TLS legs and client IP",
@@ -40,7 +40,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "fq5oE0tNzKqfqV0qQMzr",
+   "id": "EzeeNJ1nJdOngKt5VL5O",
    "type": "text",
    "x": 20.0,
    "y": 34.0,
@@ -57,12 +57,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 2143194993,
+   "seed": 1853985456,
    "version": 1,
-   "versionNonce": 2028507762,
+   "versionNonce": 575491385,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Lab values shown. The VIP owner can be any node; every HAProxy uses every agent.",
@@ -76,7 +76,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "ed6I3TYn1LP0Vjj43rHk",
+   "id": "9XbyyypLz6ZjUTaurAFB",
    "type": "ellipse",
    "x": 20.0,
    "y": 200.0,
@@ -93,22 +93,22 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1612642927,
+   "seed": 945753505,
    "version": 1,
-   "versionNonce": 1145608954,
+   "versionNonce": 1952165931,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "ateBqkuTjLwzYtsnaf6X"
+     "id": "UmYrbosiQCpdCnnK2gIz"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "ateBqkuTjLwzYtsnaf6X",
+   "id": "UmYrbosiQCpdCnnK2gIz",
    "type": "text",
    "x": 51.879999999999995,
    "y": 219.5,
@@ -125,12 +125,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1111625294,
+   "seed": 628159567,
    "version": 1,
-   "versionNonce": 2104372437,
+   "versionNonce": 161417834,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Client\n10.90.30.10",
@@ -139,12 +139,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "ed6I3TYn1LP0Vjj43rHk",
+   "containerId": "9XbyyypLz6ZjUTaurAFB",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "Xh4TrcgudVFUOLrZT55D",
+   "id": "oyAC7aEomXbZB9Lotgzl",
    "type": "rectangle",
    "x": 230.0,
    "y": 180.0,
@@ -163,22 +163,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1071832211,
+   "seed": 599591124,
    "version": 1,
-   "versionNonce": 1154919475,
+   "versionNonce": 420983120,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "Mr19k5AZp4jzqNYdXcpa"
+     "id": "zh7swjgLEv5oQRLvvCj4"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "Mr19k5AZp4jzqNYdXcpa",
+   "id": "zh7swjgLEv5oQRLvvCj4",
    "type": "text",
    "x": 254.92,
    "y": 204.5,
@@ -195,12 +195,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 416982575,
+   "seed": 1308004803,
    "version": 1,
-   "versionNonce": 434402494,
+   "versionNonce": 340636059,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Perimeter firewall\nDNAT public IP:443\n\u2192 VIP 10.90.20.100:443\n(NO source NAT)",
@@ -209,12 +209,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "Xh4TrcgudVFUOLrZT55D",
+   "containerId": "oyAC7aEomXbZB9Lotgzl",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "r8Dc9aKfNnMUx7Wo2BAP",
+   "id": "oJ3tZ0J3Y4t1fv25YIov",
    "type": "arrow",
    "x": 170.0,
    "y": 237.0,
@@ -231,12 +231,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 481258876,
+   "seed": 120397888,
    "version": 1,
-   "versionNonce": 842981222,
+   "versionNonce": 1356490947,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -257,7 +257,7 @@
    "elbowed": false
   },
   {
-   "id": "2ql4fJfgwIBL1ohg15Pu",
+   "id": "R3WOm2Xl0mZvcnkjHCb3",
    "type": "text",
    "x": 176.0,
    "y": 210.0,
@@ -274,12 +274,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1040366242,
+   "seed": 85686672,
    "version": 1,
-   "versionNonce": 2145548562,
+   "versionNonce": 22314799,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "HTTPS",
@@ -293,7 +293,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "qQaEyyOl8Uqfqaw6vDzh",
+   "id": "8ptjej1SVTs6b3Su6oU0",
    "type": "rectangle",
    "x": 490.0,
    "y": 90.0,
@@ -312,17 +312,17 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1443242948,
+   "seed": 305618535,
    "version": 1,
-   "versionNonce": 1726579632,
+   "versionNonce": 1705445306,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "TWRrFKUvEhCMPNmEeBPl",
+   "id": "6nKGtZh6zYy2mYD0jlww",
    "type": "text",
    "x": 498.0,
    "y": 98.0,
@@ -339,12 +339,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1183493763,
+   "seed": 221816647,
    "version": 1,
-   "versionNonce": 2139101183,
+   "versionNonce": 1307835401,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "VIP owner (e.g. waf-node1)",
@@ -358,7 +358,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "POcihjvJLcSW8qSUTOhL",
+   "id": "hMWoIPQCVHbyAZkxIx7H",
    "type": "rectangle",
    "x": 510.0,
    "y": 130.0,
@@ -377,22 +377,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 458975017,
+   "seed": 213212134,
    "version": 1,
-   "versionNonce": 2061931850,
+   "versionNonce": 369071096,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "6H9NGMhtP4zNFTwZBD2Y"
+     "id": "XTGz9E6lnkrQVs7AnY5u"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "6H9NGMhtP4zNFTwZBD2Y",
+   "id": "XTGz9E6lnkrQVs7AnY5u",
    "type": "text",
    "x": 526.68,
    "y": 141.875,
@@ -409,12 +409,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1174048453,
+   "seed": 1404745662,
    "version": 1,
-   "versionNonce": 2059879262,
+   "versionNonce": 2046659970,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "VIP 10.90.20.100 (moves between nodes)",
@@ -423,12 +423,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "POcihjvJLcSW8qSUTOhL",
+   "containerId": "hMWoIPQCVHbyAZkxIx7H",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "1lUyzsZToH41WSzVAKtl",
+   "id": "zAazGdgX6DUw2oOBAiWQ",
    "type": "rectangle",
    "x": 510.0,
    "y": 185.0,
@@ -447,22 +447,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 411547114,
+   "seed": 948837524,
    "version": 1,
-   "versionNonce": 1841436074,
+   "versionNonce": 346646837,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "I8bjc8PSPyPBW9d5hKoj"
+     "id": "pmGnZAGviOPdIh9DF8gM"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "I8bjc8PSPyPBW9d5hKoj",
+   "id": "pmGnZAGviOPdIh9DF8gM",
    "type": "text",
    "x": 519.4,
    "y": 215.0,
@@ -479,12 +479,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1776900250,
+   "seed": 1759170037,
    "version": 1,
-   "versionNonce": 2108738436,
+   "versionNonce": 1224962292,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "HAProxy  \u00b7  listens VIP:443 (+127.0.0.1)\n\n\u2460 terminates client TLS (cert by SNI)\n\u2022 deletes client X-Forwarded-For\n\u2022 adds XFF = real client IP\n\u2022 routes by Host \u2192 be_app1 / be_app2\n\u2022 leastconn over ALL agents\n\u2022 health checks + retries",
@@ -493,12 +493,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "1lUyzsZToH41WSzVAKtl",
+   "containerId": "zAazGdgX6DUw2oOBAiWQ",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "crg3KJK3wcEPk7pLxCjj",
+   "id": "snCsj3oTezZKcEuh88Um",
    "type": "rectangle",
    "x": 510.0,
    "y": 390.0,
@@ -517,22 +517,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1311406122,
+   "seed": 1378471586,
    "version": 1,
-   "versionNonce": 1264729007,
+   "versionNonce": 1318899461,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "8YodDGWlPaCoDy0SpMMW"
+     "id": "bdzRPpLb77iAPtbxf41q"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "8YodDGWlPaCoDy0SpMMW",
+   "id": "bdzRPpLb77iAPtbxf41q",
    "type": "text",
    "x": 537.6,
    "y": 413.75,
@@ -549,12 +549,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1668218061,
+   "seed": 1456432911,
    "version": 1,
-   "versionNonce": 105433107,
+   "versionNonce": 687264924,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "keepalived (VRRP unicast)\nholds the VIP while HAProxy answers",
@@ -563,12 +563,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "crg3KJK3wcEPk7pLxCjj",
+   "containerId": "snCsj3oTezZKcEuh88Um",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "TMcl6tJvoKEUkn23Y91y",
+   "id": "bQLGKTtxa7fGT1r0dl70",
    "type": "arrow",
    "x": 440.0,
    "y": 237.0,
@@ -585,12 +585,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1127839428,
+   "seed": 1824609896,
    "version": 1,
-   "versionNonce": 72123221,
+   "versionNonce": 2063408874,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -611,7 +611,7 @@
    "elbowed": false
   },
   {
-   "id": "2T2TCKcDNNefHylF6ZEC",
+   "id": "1wJAMcufoUfTfYNBuV5r",
    "type": "rectangle",
    "x": 930.0,
    "y": 90.0,
@@ -630,26 +630,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1276088173,
+   "seed": 1075931606,
    "version": 1,
-   "versionNonce": 430531266,
+   "versionNonce": 1565711169,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "A6cxoo34LpgHJq2AdwQy"
+     "id": "Q0XZE7b2MrO2xTidrulN"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "A6cxoo34LpgHJq2AdwQy",
+   "id": "Q0XZE7b2MrO2xTidrulN",
    "type": "text",
-   "x": 942.12,
+   "x": 938.48,
    "y": 117.5,
-   "width": 305.76000000000005,
+   "width": 313.04,
    "height": 65.0,
    "angle": 0,
    "strokeColor": "#a61e4d",
@@ -662,26 +662,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 174394965,
+   "seed": 710304691,
    "version": 1,
-   "versionNonce": 1188289302,
+   "versionNonce": 426722898,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
-   "text": "waf-node1  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.11:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
-   "originalText": "waf-node1  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.11:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "text": "waf-node1  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.11:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "originalText": "waf-node1  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.11:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
    "fontSize": 13,
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "2T2TCKcDNNefHylF6ZEC",
+   "containerId": "1wJAMcufoUfTfYNBuV5r",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "AuvBayN9u8T2kDe6A5Dw",
+   "id": "f4oXhllIPKVah7SDHk6a",
    "type": "arrow",
    "x": 820.0,
    "y": 280.0,
@@ -698,12 +698,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1535476577,
+   "seed": 2071457745,
    "version": 1,
-   "versionNonce": 1344264285,
+   "versionNonce": 1408905292,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -724,7 +724,7 @@
    "elbowed": false
   },
   {
-   "id": "yTtvLUcdTXfZbSEZwr2k",
+   "id": "O72txGct6qcEDxmujkv9",
    "type": "rectangle",
    "x": 930.0,
    "y": 230.0,
@@ -743,26 +743,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1138029097,
+   "seed": 1055934512,
    "version": 1,
-   "versionNonce": 1796399130,
+   "versionNonce": 1208032359,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "SIheBYEguJWPtmOV1VKA"
+     "id": "lNRFtAPggtr8gEPFNJZk"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "SIheBYEguJWPtmOV1VKA",
+   "id": "lNRFtAPggtr8gEPFNJZk",
    "type": "text",
-   "x": 942.12,
+   "x": 938.48,
    "y": 257.5,
-   "width": 305.76000000000005,
+   "width": 313.04,
    "height": 65.0,
    "angle": 0,
    "strokeColor": "#a61e4d",
@@ -775,26 +775,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 916488945,
+   "seed": 1882571783,
    "version": 1,
-   "versionNonce": 1052268322,
+   "versionNonce": 1444051738,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
-   "text": "waf-node2  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.12:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
-   "originalText": "waf-node2  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.12:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "text": "waf-node2  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.12:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "originalText": "waf-node2  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.12:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
    "fontSize": 13,
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "yTtvLUcdTXfZbSEZwr2k",
+   "containerId": "O72txGct6qcEDxmujkv9",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "OMEvoHrE9ngvjmG4rOHH",
+   "id": "G1ZH0Rf2oIRPRTfspkVu",
    "type": "arrow",
    "x": 820.0,
    "y": 280.0,
@@ -811,12 +811,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 586461483,
+   "seed": 439761858,
    "version": 1,
-   "versionNonce": 693569277,
+   "versionNonce": 1035844534,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -837,7 +837,7 @@
    "elbowed": false
   },
   {
-   "id": "K5jds8FIDuOanjw1mKB3",
+   "id": "60O09GMsxaUf0JScbehk",
    "type": "rectangle",
    "x": 930.0,
    "y": 370.0,
@@ -856,26 +856,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 484671058,
+   "seed": 2085874376,
    "version": 1,
-   "versionNonce": 435170482,
+   "versionNonce": 540617376,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "MLkFpK3l3bRS1hhwj8uY"
+     "id": "j0eMAhwbFtP9vy1e49v4"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "MLkFpK3l3bRS1hhwj8uY",
+   "id": "j0eMAhwbFtP9vy1e49v4",
    "type": "text",
-   "x": 942.12,
+   "x": 938.48,
    "y": 397.5,
-   "width": 305.76000000000005,
+   "width": 313.04,
    "height": 65.0,
    "angle": 0,
    "strokeColor": "#a61e4d",
@@ -888,26 +888,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 393734295,
+   "seed": 440338926,
    "version": 1,
-   "versionNonce": 2066098921,
+   "versionNonce": 271534019,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
-   "text": "waf-node3  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.13:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
-   "originalText": "waf-node3  \u00b7  NGINX + CloudGuard WAF agent\nlistens 10.90.20.13:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "text": "waf-node3  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.13:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
+   "originalText": "waf-node3  \u00b7  NGINX + Check Point WAF agent\nlistens 10.90.20.13:443 (node's own IP)\n\u2461 TLS from HAProxy (app cert)\nasset match = Host AND port 443",
    "fontSize": 13,
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "K5jds8FIDuOanjw1mKB3",
+   "containerId": "60O09GMsxaUf0JScbehk",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "MMbcK3bFQTyqlSOL4w7M",
+   "id": "uH0pE9k2CIL61GUH9Eua",
    "type": "arrow",
    "x": 820.0,
    "y": 280.0,
@@ -924,12 +924,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 573458290,
+   "seed": 641835574,
    "version": 1,
-   "versionNonce": 394561099,
+   "versionNonce": 204612172,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -950,7 +950,7 @@
    "elbowed": false
   },
   {
-   "id": "VOsSD9hONW4XIaTPLWiu",
+   "id": "fiGVCM6jdNHYgDv6LDjI",
    "type": "text",
    "x": 846.0,
    "y": 96.0,
@@ -967,12 +967,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 205875607,
+   "seed": 533337734,
    "version": 1,
-   "versionNonce": 2042662961,
+   "versionNonce": 1925667522,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "\u2461 TLS\nre-encrypted\n+ verified",
@@ -986,7 +986,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "B3oocQ9a4guNEfKwvZKg",
+   "id": "l8qgmYMsPDGOdYY6EfCo",
    "type": "line",
    "x": 1260.0,
    "y": 150.0,
@@ -1003,12 +1003,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 343539022,
+   "seed": 390206970,
    "version": 1,
-   "versionNonce": 968533968,
+   "versionNonce": 1009435022,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -1036,7 +1036,7 @@
    "endArrowhead": null
   },
   {
-   "id": "LVp1gqttqQa66tKhyKcK",
+   "id": "HjzLJTrm4TKfXoJn6jXL",
    "type": "line",
    "x": 1260.0,
    "y": 290.0,
@@ -1053,12 +1053,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 2061889853,
+   "seed": 1113626609,
    "version": 1,
-   "versionNonce": 1407115530,
+   "versionNonce": 1208738455,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -1078,7 +1078,7 @@
    "endArrowhead": null
   },
   {
-   "id": "49TdeKCJyOM0sMAjG6b5",
+   "id": "2Gkjg8175pxhGGJ37c0i",
    "type": "arrow",
    "x": 1290.0,
    "y": 200.0,
@@ -1095,12 +1095,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1414750256,
+   "seed": 1823444314,
    "version": 1,
-   "versionNonce": 1504856312,
+   "versionNonce": 1622684435,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -1121,7 +1121,7 @@
    "elbowed": false
   },
   {
-   "id": "k0kwB1jqXWqpsfvBCWmq",
+   "id": "OvhsCOdevqJBrJ14x6Wv",
    "type": "arrow",
    "x": 1290.0,
    "y": 340.0,
@@ -1138,12 +1138,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 790652970,
+   "seed": 2064111043,
    "version": 1,
-   "versionNonce": 2078674598,
+   "versionNonce": 995942854,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "points": [
@@ -1164,7 +1164,7 @@
    "elbowed": false
   },
   {
-   "id": "yyoiirFLTcJHlwZNRLom",
+   "id": "cLLDkJ6SD4vK8frD72wo",
    "type": "rectangle",
    "x": 1340.0,
    "y": 160.0,
@@ -1183,22 +1183,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1271373447,
+   "seed": 2034313704,
    "version": 1,
-   "versionNonce": 1783551239,
+   "versionNonce": 1277073804,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "pXiwLZuso5ojdcDNiZtr"
+     "id": "WpifY36bTkSFMjikaXQs"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "pXiwLZuso5ojdcDNiZtr",
+   "id": "WpifY36bTkSFMjikaXQs",
    "type": "text",
    "x": 1400.4,
    "y": 183.75,
@@ -1215,12 +1215,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 207001983,
+   "seed": 1945879038,
    "version": 1,
-   "versionNonce": 1075956062,
+   "versionNonce": 856317492,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "backend1 \u00b7 app1\n10.90.20.5:443",
@@ -1229,12 +1229,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "yyoiirFLTcJHlwZNRLom",
+   "containerId": "cLLDkJ6SD4vK8frD72wo",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "eRJXtiDp8mBw0NYqYeQP",
+   "id": "mNPBdp4DZ5TPBooYtALw",
    "type": "rectangle",
    "x": 1340.0,
    "y": 300.0,
@@ -1253,22 +1253,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1190396386,
+   "seed": 746709335,
    "version": 1,
-   "versionNonce": 183005497,
+   "versionNonce": 780110041,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "5ZfbApxdkZml2f08OoTx"
+     "id": "wPYQR4ETN4fh3DficftU"
     }
    ],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "5ZfbApxdkZml2f08OoTx",
+   "id": "wPYQR4ETN4fh3DficftU",
    "type": "text",
    "x": 1400.4,
    "y": 323.75,
@@ -1285,12 +1285,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1426109675,
+   "seed": 1810687711,
    "version": 1,
-   "versionNonce": 1183275581,
+   "versionNonce": 110563472,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198255,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "backend2 \u00b7 app2\n10.90.20.6:443",
@@ -1299,12 +1299,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "eRJXtiDp8mBw0NYqYeQP",
+   "containerId": "mNPBdp4DZ5TPBooYtALw",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "5EsBwOGpTCvx77MwJz90",
+   "id": "zRNAOuRuVESRG90pGCR2",
    "type": "text",
    "x": 1296.0,
    "y": 395.0,
@@ -1321,12 +1321,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1321240926,
+   "seed": 978899445,
    "version": 1,
-   "versionNonce": 750580988,
+   "versionNonce": 1994037222,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "\u2462 TLS, backend\ncert verified",
@@ -1340,7 +1340,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "HviuLSfRFd6w6nvyKM9F",
+   "id": "whsEGjgDYpJhByJAAtPX",
    "type": "rectangle",
    "x": 1340.0,
    "y": 60.0,
@@ -1359,22 +1359,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1104240048,
+   "seed": 203661910,
    "version": 1,
-   "versionNonce": 1168519944,
+   "versionNonce": 1808201011,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "WwUJx2iZi2564VSWQf7r"
+     "id": "JjaF4qW9vwsub25q2VG3"
     }
    ],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "WwUJx2iZi2564VSWQf7r",
+   "id": "JjaF4qW9vwsub25q2VG3",
    "type": "text",
    "x": 1357.56,
    "y": 72.5,
@@ -1391,12 +1391,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1107683306,
+   "seed": 13486793,
    "version": 1,
-   "versionNonce": 1659517193,
+   "versionNonce": 1917487087,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Infinity Portal\npolicy \u00b7 logs (outbound HTTPS\nfrom every agent)",
@@ -1405,12 +1405,12 @@
    "fontFamily": 2,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "HviuLSfRFd6w6nvyKM9F",
+   "containerId": "whsEGjgDYpJhByJAAtPX",
    "autoResize": true,
    "lineHeight": 1.25
   },
   {
-   "id": "J8UIcvsNFtIlBAw4GGio",
+   "id": "qbAGlNIczG3goYEZ9QoP",
    "type": "rectangle",
    "x": 20.0,
    "y": 520.0,
@@ -1429,17 +1429,17 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1837148943,
+   "seed": 901929720,
    "version": 1,
-   "versionNonce": 19186267,
+   "versionNonce": 150505408,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "DNAejj2rsqHRSg7nkR8z",
+   "id": "tCYgu8x5R4DTi8YbA3nB",
    "type": "text",
    "x": 25.0,
    "y": 524.0,
@@ -1456,12 +1456,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1471189116,
+   "seed": 1771941435,
    "version": 1,
-   "versionNonce": 1512638877,
+   "versionNonce": 804484431,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Client IP end to end\n\u2022 Firewall: DNAT only (keeps 10.90.30.10 as source)\n\u2022 HAProxy: drops client XFF, sets XFF = 10.90.30.10\n\u2022 Asset source identity = X-Forwarded-For\n\u2022 Portal: Source IP = HAProxy node,\n  Source Identifier = 10.90.30.10 (the client)",
@@ -1475,7 +1475,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "rh1xawd88p8b4zZU2xE1",
+   "id": "vrDebZNFHqhlPk5Vsqcx",
    "type": "rectangle",
    "x": 490.0,
    "y": 520.0,
@@ -1494,17 +1494,17 @@
    "roundness": {
     "type": 3
    },
-   "seed": 2036260431,
+   "seed": 1178478016,
    "version": 1,
-   "versionNonce": 391276397,
+   "versionNonce": 1710531434,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "TlUa12viOMDfvGlXrQnJ",
+   "id": "NPAkDDjfxXvio16XV7x4",
    "type": "text",
    "x": 495.0,
    "y": 524.0,
@@ -1521,12 +1521,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1388417216,
+   "seed": 2064600491,
    "version": 1,
-   "versionNonce": 2001991225,
+   "versionNonce": 437415337,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Why port 443 twice on the same VM?\n\u2022 HAProxy binds the VIP:443 (ip_nonlocal_bind=1 on every node)\n\u2022 NGINX binds the node's own IP:443\n\u2022 The agent applies an asset only if Host AND the listening\n  port match the asset URL (https://app\u2026 = 443).\n  On 8443 nothing was inspected and nothing was logged.",
@@ -1540,7 +1540,7 @@
    "lineHeight": 1.25
   },
   {
-   "id": "fc7khsWSEi1EcfCEx6XV",
+   "id": "UHIT4QhGeStJhTwHAKcU",
    "type": "rectangle",
    "x": 1030.0,
    "y": 520.0,
@@ -1559,17 +1559,17 @@
    "roundness": {
     "type": 3
    },
-   "seed": 389233859,
+   "seed": 1341359516,
    "version": 1,
-   "versionNonce": 56381815,
+   "versionNonce": 1892412124,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false
   },
   {
-   "id": "kmUYMX3FarRqIEsh6fOX",
+   "id": "qo4g61dXQeJLkcffUhHs",
    "type": "text",
    "x": 1035.0,
    "y": 524.0,
@@ -1586,12 +1586,12 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1069654937,
+   "seed": 1715339474,
    "version": 1,
-   "versionNonce": 1699180161,
+   "versionNonce": 1345564368,
    "isDeleted": false,
    "boundElements": [],
-   "updated": 1793931198256,
+   "updated": 1793932307461,
    "link": null,
    "locked": false,
    "text": "Three TLS legs, one cert per app on legs \u2460 and \u2461\n\u2460 client \u2192 HAProxy: app cert (public trust)\n\u2461 HAProxy \u2192 agent: same app cert, verified with ca-file\n\u2462 agent \u2192 backend: backend cert, verified by NGINX\nRotation = push to every node, validate, graceful reload",

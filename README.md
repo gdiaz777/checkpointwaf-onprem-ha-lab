@@ -1,8 +1,8 @@
-# CloudGuard WAF on-prem: HA without a load balancer
+# Check Point WAF on-prem: HA without a load balancer
 
 > **Disclaimer:** community lab guide. This is **not** official Check Point documentation and it is **not** supported by Check Point. Validate everything in your own environment before using it in production.
 
-A tested, step-by-step lab for running several **Check Point CloudGuard WAF** agents on-prem in **high availability with load sharing, without a dedicated load balancer**. Typical fit: a perimeter firewall in front of the web apps, a virtualization platform, no load balancer, and the need for more than one WAF agent.
+A tested, step-by-step lab for running several **Check Point WAF** agents on-prem in **high availability with load sharing, without a dedicated load balancer**. Typical fit: a perimeter firewall in front of the web apps, a virtualization platform, no load balancer, and the need for more than one WAF agent.
 
 > 📘 **Start here: [GUIDE.md](GUIDE.md)**. It covers every component, the request flow, the design decisions, a step-by-step build (vSphere included), day-2 operations and the test battery, in one document.
 
@@ -16,7 +16,7 @@ Every WAF node is an identical VM running three things:
 |---|---|
 | **keepalived** | Keeps one floating **VIP** (VRRP, unicast) on exactly one node and moves it when that node or its HAProxy fails |
 | **HAProxy** | On the VIP owner: terminates TLS, adds `X-Forwarded-For`, routes by Host to a **per-app pool that contains every node's agent**, health-checks them and retries failed connections on another agent |
-| **NGINX + CloudGuard WAF agent** | The Linux (NGINX add-on) deployment. Listens on the **node's own IP:443** (HAProxy owns VIP:443): the agent only inspects requests whose host **and listening port** match an asset. Inspects and proxies to the app backend |
+| **NGINX + Check Point WAF agent** | The Linux (NGINX add-on) deployment. Listens on the **node's own IP:443** (HAProxy owns VIP:443): the agent only inspects requests whose host **and listening port** match an asset. Inspects and proxies to the app backend |
 
 The perimeter firewall only **DNATs the published IP to the VIP**, with no source NAT. Adding capacity means adding another identical node, with no change on the firewall or in the Infinity Portal.
 
